@@ -2,9 +2,64 @@
 
 <input type="text" placeholder="Type something..." [(ngModel)]="inputValue" />
 
-<p class="para">You typed: {{ inputValue }}</p>
-<p style="background-color: black; color: white;">Current date and time: {{ date | date:'dd-MM-yyyy' }}</p>
+<img src="assets/img/download.png" alt="Angular Logo" width="200" />
+<img [src]="imgSrc" alt="Angular Logo" width="200" />
 
-<app-about></app-about>
+<p [class]="inputValue ? 'para' : ''">You typed: {{ inputValue }}</p>
+<p style="background-color: black; color: white">
+  Current date and time: {{ date | date: 'dd-MM-yyyy' }}
+</p>
+
+<button (click)="getCurrentYear('abc')">Update Date</button>
+
+@if (inputValue.length > 0 && inputValue.length <= 5) {
+  <app-about></app-about>
+} @else if (inputValue.length > 5) {
+  <p>You entered more than 5 characters!</p>
+} @else {
+  <p>Please enter some text to see the About component.</p>
+}
+
+<div
+  style="
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    justify-content: space-between;
+  "
+>
+  @for (data of imgArray; track data) {
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-direction: column;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        border-radius: 0.8rem;
+        margin: 0.5rem;
+        min-width: 250px;
+      "
+    >
+      <p>{{ data.alt }}</p>
+      <img [src]="data.src" [alt]="data.alt" width="100" />
+    </div>
+  }
+</div>
+
+@switch (role) {
+  @case ('admin') {
+    <p>Welcome, Admin! You have full access.</p>
+  }
+  @case ('user') {
+    <p>Welcome, User! You have limited access.</p>
+  }
+  @default {
+    <p>Welcome, Guest! Please log in to access more features.</p>
+  }
+}
 
 <router-outlet />
