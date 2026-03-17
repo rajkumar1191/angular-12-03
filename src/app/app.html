@@ -12,8 +12,14 @@
 
 <button (click)="getCurrentYear('abc')">Update Date</button>
 
+<input (input)="onInputChange($event)" placeholder="Type to see the About component..." />
+
 @if (inputValue.length > 0 && inputValue.length <= 5) {
-  <app-about></app-about>
+  <app-about [data]="inputValue">
+    <div style="background-color: lightblue; padding: 10px; margin-top: 10px" #content>
+      <p>This content is projected from the App component to the About component.</p>
+    </div>
+  </app-about>
 } @else if (inputValue.length > 5) {
   <p>You entered more than 5 characters!</p>
 } @else {
@@ -43,6 +49,11 @@
         margin: 0.5rem;
         min-width: 250px;
       "
+      [ngClass]="{ bgData: data.id % 2 === 0 }"
+      [ngStyle]="{ width: winWidth }"
+      (mouseenter)="onHover()"
+      (mouseleave)="onLeave()"
+      [appHighlight]="{ color: data.clr, fontSize: '1.2rem' }"
     >
       <p>{{ data.alt }}</p>
       <img [src]="data.src" [alt]="data.alt" width="100" />
