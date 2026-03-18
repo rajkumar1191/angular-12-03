@@ -10,6 +10,8 @@
   Current date and time: {{ date | date: 'dd-MM-yyyy' }}
 </p>
 
+<p>Square root of {{ sqrtValue }} is: {{ sqrtValue | sqrt }}</p>
+
 <button (click)="getCurrentYear('abc')">Update Date</button>
 
 <input (input)="onInputChange($event)" placeholder="Type to see the About component..." />
@@ -72,5 +74,7 @@
     <p>Welcome, Guest! Please log in to access more features.</p>
   }
 }
+
+<app-pipes-demo></app-pipes-demo>
 
 <router-outlet />

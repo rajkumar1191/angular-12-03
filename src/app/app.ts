@@ -1,22 +1,26 @@
 import { DatePipe, NgClass, NgStyle } from '@angular/common';
-import { Component, OnChanges, signal, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { About } from './about/about';
 import { Highlight } from './highlight';
+import { PipesDemo } from './pipes/pipes';
+import { SqrtPipe } from './sqrt-pipe';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule, DatePipe, About, NgClass, NgStyle, Highlight],
+  imports: [RouterOutlet, FormsModule, DatePipe, About, NgClass, NgStyle, Highlight, PipesDemo, SqrtPipe],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {
+export class App implements OnInit {
   protected readonly title = signal('angular-app');
   inputValue = '';
   date = new Date();
 
   imgSrc = 'assets/img/download.png';
+
+  sqrtValue = 2;
 
   imgArray = [
     {
@@ -84,6 +88,12 @@ export class App {
   role = 'admin';
 
   winWidth = '200px';
+
+  ngOnInit() {
+    // setInterval(() => {
+    //   this.sqrtValue += 2;
+    // }, 2000);
+  }
 
   getCurrentYear(data: string) {
     this.date = new Date();
