@@ -1,15 +1,22 @@
 import { DatePipe, NgClass, NgStyle } from '@angular/common';
 import { Component, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { About } from './about/about';
 import { Highlight } from './highlight';
 import { PipesDemo } from './pipes/pipes';
+import { FormsDemo } from './forms/forms';
+// import { SignalsDemo } from './signals/signals';
+// import { RxjsOperatorsDemo } from './rxjs-operators/rxjs-operators';
+// import { CounterComponent } from './counter/counter';
+// import { StateStrategyDemo } from './state-strategy-demo/state-strategy-demo';
+// import { DynamicHostComponent } from './dynamic/dynamic-host.component';
+// import { I18nDemoComponent } from './i18n/i18n-demo.component';
 import { SqrtPipe } from './sqrt-pipe';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule, DatePipe, About, NgClass, NgStyle, Highlight, PipesDemo, SqrtPipe],
+  imports: [RouterOutlet, RouterLink, FormsModule, DatePipe, About, NgClass, NgStyle, Highlight, SqrtPipe, FormsDemo, PipesDemo],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

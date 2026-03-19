@@ -1,0 +1,104 @@
+<section style="border: 2px solid #4caf50; border-radius: .75rem; padding: 1rem; margin-top: 2rem;">
+  <h3>Forms Demo (Template-driven + Reactive)</h3>
+  <p>Angular forms allow validation, two-way binding, nested controls, and diagnostics during UI interaction.</p>
+
+  <h4>Template-driven Form (requires FormsModule)</h4>
+  <form #templateForm="ngForm" (ngSubmit)="onTemplateSubmit(templateForm)">
+    <label>Name:</label>
+    <input name="name" [(ngModel)]="templateModel.name" required minlength="3" #name="ngModel" />
+    <div class="error" *ngIf="name.invalid && (name.dirty || name.touched)">
+      <small *ngIf="name.errors?.['required']">Name is required.</small>
+      <small *ngIf="name.errors?.['minlength']">Name must be at least 3 chars.</small>
+    </div>
+
+    <label>Email (required, email):</label>
+    <input name="email" type="email" [(ngModel)]="templateModel.email" required email #email="ngModel" />
+    <div class="error" *ngIf="email.invalid && (email.dirty || email.touched)">
+      <small *ngIf="email.errors?.['required']">Email is required.</small>
+      <small *ngIf="email.errors?.['email']">Email format must be valid.</small>
+    </div>
+
+    <label>Age (required, 18-120):</label>
+    <input name="age" type="number" [(ngModel)]="templateModel.age" required min="18" max="120" #age="ngModel" />
+    <div class="error" *ngIf="age.invalid && (age.dirty || age.touched)">
+      <small *ngIf="age.errors?.['required']">Age is required.</small>
+      <small *ngIf="age.errors?.['min']">Age must be 18 or older.</small>
+      <small *ngIf="age.errors?.['max']">Age must be 120 or less.</small>
+    </div>
+
+    <button type="submit">Submit Template Form</button>
+    <div *ngIf="submittedTemplate">
+      <p>Submitted values: {{ templateModel | json }}</p>
+      <p>Valid: {{ templateForm.valid }}</p>
+    </div>
+  </form>
+
+  <h4>Reactive Form (requires ReactiveFormsModule)</h4>
+  <form [formGroup]="reactiveForm" (ngSubmit)="onReactiveSubmit()">
+    <label>Name (required, min 3):</label>
+    <input formControlName="name" />
+    <div class="error" *ngIf="reactive['name'].invalid && (reactive['name'].dirty || reactive['name'].touched)">
+      <small *ngIf="reactive['name'].errors?.['required']">Name is required.</small>
+      <small *ngIf="reactive['name'].errors?.['minlength']">Name must have at least 3 letters.</small>
+    </div>
+
+    <label>Email (required, email format):</label>
+    <input formControlName="email" type="email" />
+    <div class="error" *ngIf="reactive['email'].invalid && (reactive['email'].dirty || reactive['email'].touched)">
+      <small *ngIf="reactive['email'].errors?.['required']">Email is required.</small>
+      <small *ngIf="reactive['email'].errors?.['email']">Must be a valid email.</small>
+    </div>
+
+    <label>Age (required, 18-120):</label>
+    <input formControlName="age" type="number" />
+    <div class="error" *ngIf="reactive['age'].invalid && (reactive['age'].dirty || reactive['age'].touched)">
+      <small *ngIf="reactive['age'].errors?.['required']">Age is required.</small>
+      <small *ngIf="reactive['age'].errors?.['min']">Minimum age is 18.</small>
+      <small *ngIf="reactive['age'].errors?.['max']">Maximum age is 120.</small>
+    </div>
+
+    <label>Password (required, min 8):</label>
+    <input formControlName="password" type="password" />
+    <div class="error" *ngIf="reactive['password'].invalid && (reactive['password'].dirty || reactive['password'].touched)">
+      <small *ngIf="reactive['password'].errors?.['required']">Password is required.</small>
+      <small *ngIf="reactive['password'].errors?.['minlength']">Password must be at least 8 chars.</small>
+    </div>
+
+    <label>Skills:</label>
+    <div formArrayName="skills">
+      <div *ngFor="let skill of skills.controls; let i = index">
+        <input [formControlName]="i" placeholder="Skill {{ i + 1 }}" />
+        <button type="button" (click)="removeSkill(i)">Remove</button>
+        <div class="error" *ngIf="skill.invalid && (skill.dirty || skill.touched)">
+          <small *ngIf="skill.errors?.['required']">Skill is required.</small>
+        </div>
+      </div>
+    </div>
+    <button type="button" (click)="addSkill()">Add Skill</button>
+    
+
+    <label>
+      <input formControlName="agree" type="checkbox" /> Agree Terms
+    </label>
+    <div class="error" *ngIf="reactive['agree'].invalid && reactive['agree'].touched">
+      <small *ngIf="reactive['agree'].errors?.['requiredTrue']">You must accept terms.</small>
+    </div>
+
+    <button type="submit" [disabled]="reactiveForm.invalid">Submit Reactive Form</button>
+
+    <div *ngIf="submittedReactive">
+      <p>Reactive form values: {{ reactiveForm.value | json }}</p>
+      <p>Valid: {{ reactiveForm.valid }}</p>
+    </div>
+  </form>
+
+  <section style="margin-top: 1rem; background: #f9f9f9; padding: .8rem; border-radius: .5rem; border: 1px solid #ddd;">
+    <h4>Saved form entries in NgRx store</h4>
+    <button (click)="clearStoredData()">Clear Stored Form Entries</button>
+    <!-- <ul>
+      <li *ngFor="let item of formDataItems$ | async">
+        {{ item.name }} ({{ item.email }}, age {{ item.age }}, agreed: {{ item.agree }})
+      </li>
+    </ul> -->
+  </section>
+</section>
