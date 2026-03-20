@@ -3,7 +3,7 @@ import { Service } from '../service/service';
 
 @Component({
   selector: 'app-about',
-  imports: [Service],
+  imports: [],
   templateUrl: './about.html',
   styleUrl: './about.css',
 })

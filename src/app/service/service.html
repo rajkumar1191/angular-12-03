@@ -1,1 +1,18 @@
-<p>service works!</p>
+<section style="border: 1px dashed #009688; padding: 0.8rem; margin-top: 1rem; border-radius: 0.6rem;">
+  <h4>Service + HTTP Example (DataService)</h4>
+  <p>This service demo uses <code>HttpClient</code> to fetch posts from JSONPlaceholder and demonstrates DI usage.</p>
+
+  <p><strong>Top posts:</strong></p>
+  <ul>
+    <li *ngFor="let post of posts">
+      <strong>{{ post.id }}</strong>. {{ post.title }}
+      <button (click)="loadPost(post.id)">Load detail</button>
+    </li>
+  </ul>
+
+  <div *ngIf="selectedPost" style="margin-top: 0.5rem; padding: 0.5rem; background: #eef; border-radius: 0.4rem;">
+    <h5>Selected Post #{{ selectedPost.id }}</h5>
+    <p><strong>{{ selectedPost.title }}</strong></p>
+    <p>{{ selectedPost.body }}</p>
+  </div>
+</section>

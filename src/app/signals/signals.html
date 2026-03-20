@@ -1,0 +1,27 @@
+<section style="border: 2px solid #673ab7; padding: 1rem; border-radius: 0.75rem; margin-top: 2rem;">
+  <h3>Signals and Change Detection Demo</h3>
+  <p>
+    This component uses <code>signal()</code>, <code>computed()</code>, and <code>effect()</code> to build reactive UI state.
+    It runs with <code>ChangeDetectionStrategy.OnPush</code> to show how signals solve classic CD pain points.
+  </p>
+
+  <h4>Signal counter</h4>
+  <p>count = <strong>{{ count() }}</strong>&nbsp;(<em>{{ parity() }}</em>)</p>
+  <button (click)="incrementSignal()">+1 signal</button>
+  <button (click)="decrementSignal()">-1 signal</button>
+
+  <h4>Legacy variable counter (not signal)</h4>
+  <p>legacyCount = <strong>{{ legacyCount }}</strong></p>
+  <button (click)="incrementLegacy()">+1 legacy (no markForCheck)</button>
+  <button (click)="incrementLegacyWithCheck()">+1 legacy (markForCheck)</button>
+
+  <h4>Items list state as signal</h4>
+  <p>items = <strong>{{ items() | json }}</strong></p>
+  <button (click)="addItem()">Add item</button>
+  <button (click)="removeItem()" [disabled]="items().length === 0">Remove item</button>
+
+  <h4>Why signals are better for change-detection</h4>
+  <ol>
+    <li *ngFor="let text of explainSignalBenefits">{{ text }}</li>
+  </ol>
+</section>

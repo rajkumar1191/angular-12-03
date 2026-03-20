@@ -6,17 +6,18 @@ import { About } from './about/about';
 import { Highlight } from './highlight';
 import { PipesDemo } from './pipes/pipes';
 import { FormsDemo } from './forms/forms';
-// import { SignalsDemo } from './signals/signals';
+import { SignalsDemo } from './signals/signals';
 // import { RxjsOperatorsDemo } from './rxjs-operators/rxjs-operators';
 // import { CounterComponent } from './counter/counter';
 // import { StateStrategyDemo } from './state-strategy-demo/state-strategy-demo';
 // import { DynamicHostComponent } from './dynamic/dynamic-host.component';
 // import { I18nDemoComponent } from './i18n/i18n-demo.component';
 import { SqrtPipe } from './sqrt-pipe';
+import { Service } from './service/service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, FormsModule, DatePipe, About, NgClass, NgStyle, Highlight, SqrtPipe, FormsDemo, PipesDemo],
+  imports: [RouterOutlet, RouterLink, FormsModule, DatePipe, About, NgClass, NgStyle, Highlight, SqrtPipe, FormsDemo, PipesDemo, SignalsDemo, Service],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
