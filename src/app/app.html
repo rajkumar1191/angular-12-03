@@ -1,20 +1,38 @@
 <h2>Welcome to the Angular App! (Router + NgRx demo)</h2>
 
-<!-- <nav style="margin-bottom: 1rem;">
-  <a routerLink="/" style="margin-right: 0.7rem;">About</a>
-  <a routerLink="/pipes" style="margin-right: 0.7rem;">Pipes</a>
-  <a routerLink="/forms" style="margin-right: 0.7rem;">Forms</a>
-  <a routerLink="/signals" style="margin-right: 0.7rem;">Signals</a>
-  <a routerLink="/rxjs" style="margin-right: 0.7rem;">RxJS</a>
-  <a routerLink="/service" style="margin-right: 0.7rem;">Service</a>
-  <a routerLink="/counter" style="margin-right: 0.7rem;">Counter</a>
-  <a routerLink="/state-strategy" style="margin-right: 0.7rem;">State Strategy</a>
-  <a routerLink="/dynamic" style="margin-right: 0.7rem;">Dynamic Load</a>
-  <a routerLink="/i18n" style="margin-right: 0.7rem;">i18n</a>
-  <a routerLink="/lazy-feature">Lazy Feature</a>
-</nav> -->
+<nav style="margin-bottom: 1rem">
+  <a
+    routerLink="/"
+    routerLinkActive="active-link"
+    style="margin-right: 0.7rem"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >About</a
+  >
+  <a
+    routerLink="/about"
+    routerLinkActive="active-link"
+    style="margin-right: 0.7rem"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >About</a
+  >
+  <!-- <a href="/about" style="margin-right: 0.7rem;">About</a> -->
+  <a routerLink="/pipes" routerLinkActive="active-link" style="margin-right: 0.7rem">Pipes</a>
+  <a routerLink="/forms" routerLinkActive="active-link" style="margin-right: 0.7rem">Forms</a>
+  <a routerLink="/signals" routerLinkActive="active-link" style="margin-right: 0.7rem">Signals</a>
+  <a routerLink="/rxjs" routerLinkActive="active-link" style="margin-right: 0.7rem">RxJS</a>
+  <a routerLink="/service" routerLinkActive="active-link" style="margin-right: 0.7rem">Service</a>
+  <a routerLink="/counter" routerLinkActive="active-link" style="margin-right: 0.7rem">Counter</a>
+  <a routerLink="/state-strategy" routerLinkActive="active-link" style="margin-right: 0.7rem"
+    >State Strategy</a
+  >
+  <a routerLink="/dynamic" routerLinkActive="active-link" style="margin-right: 0.7rem"
+    >Dynamic Load</a
+  >
+  <a routerLink="/i18n" routerLinkActive="active-link" style="margin-right: 0.7rem">i18n</a>
+  <a routerLink="/lazy-feature" routerLinkActive="active-link">Lazy Feature</a>
+</nav>
 
-<input type="text" placeholder="Type something..." [(ngModel)]="inputValue" />
+<!-- <input type="text" placeholder="Type something..." [(ngModel)]="inputValue" />
 
 <img src="assets/img/download.png" alt="Angular Logo" width="200" />
 <img [src]="imgSrc" alt="Angular Logo" width="200" />
@@ -87,14 +105,16 @@
   @default {
     <p>Welcome, Guest! Please log in to access more features.</p>
   }
-}
+} -->
 
-<app-pipes-demo></app-pipes-demo>
+<!-- <app-pipes-demo></app-pipes-demo>
 
 <app-forms-demo></app-forms-demo>
 
 <app-signals-demo></app-signals-demo>
 
-<app-service></app-service>
+<app-service></app-service> -->
+
+<button (click)="navigateToAbout()">Go to About</button>
 
 <router-outlet></router-outlet>

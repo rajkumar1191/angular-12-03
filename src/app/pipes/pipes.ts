@@ -1,5 +1,6 @@
 import { AsyncPipe, CurrencyPipe, DatePipe, JsonPipe, LowerCasePipe, PercentPipe, SlicePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { Component, Pipe, PipeTransform } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 // Custom simple pipe: truncates text to a limit and adds ellipsis
 @Pipe({
@@ -48,6 +49,16 @@ export class PipesDemo {
   asyncItems = new Promise<string[]>((resolve) => {
     setTimeout(() => resolve(['RxJS', 'Signals', 'Change Detection']), 1600);
   });
+
+  constructor(private route: ActivatedRoute) {
+    this.route.params.subscribe((params) => {
+      console.log('Route params:', params);
+    });
+
+    this.route.queryParams.subscribe((queryParams) => {
+      console.log('Query params:', queryParams);
+    });
+  }
 
   // Example of calling a pipe-like transformation for inline code use, not template
   toUpperCase(value: string): string {

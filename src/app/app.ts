@@ -1,23 +1,10 @@
-import { DatePipe, NgClass, NgStyle } from '@angular/common';
 import { Component, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import { About } from './about/about';
-import { Highlight } from './highlight';
-import { PipesDemo } from './pipes/pipes';
-import { FormsDemo } from './forms/forms';
-import { SignalsDemo } from './signals/signals';
-// import { RxjsOperatorsDemo } from './rxjs-operators/rxjs-operators';
-// import { CounterComponent } from './counter/counter';
-// import { StateStrategyDemo } from './state-strategy-demo/state-strategy-demo';
-// import { DynamicHostComponent } from './dynamic/dynamic-host.component';
-// import { I18nDemoComponent } from './i18n/i18n-demo.component';
-import { SqrtPipe } from './sqrt-pipe';
-import { Service } from './service/service';
+import { RouterLink, RouterOutlet, RouterLinkActive, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, FormsModule, DatePipe, About, NgClass, NgStyle, Highlight, SqrtPipe, FormsDemo, PipesDemo, SignalsDemo, Service],
+  imports: [RouterOutlet, RouterLink, FormsModule, RouterLinkActive],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -97,12 +84,22 @@ export class App implements OnInit {
 
   winWidth = '200px';
 
+  constructor(private router: Router) {}
+
   ngOnInit() {
     // setInterval(() => {
     //   this.sqrtValue += 2;
     // }, 2000);
   }
 
+  navigateToAbout() {
+    // this.router.navigate(['/about']);
+
+    //navigate with parameter
+
+    // this.router.navigate(['/pipes', 123]);
+    this.router.navigate(['/pipes'], { queryParams: { name: 'raj', age: 30 } });
+  }
   getCurrentYear(data: string) {
     this.date = new Date();
     console.log(this.date.getMonth() + 1, data);

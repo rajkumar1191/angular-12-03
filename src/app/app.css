@@ -6,3 +6,8 @@
 .bgData {
     background-color: lightblue;
 }
+
+.active-link {
+    color: blue;
+    font-weight: bold;
+}
