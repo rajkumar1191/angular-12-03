@@ -9,11 +9,23 @@ import { CounterComponent } from './counter/counter';
 import { StateStrategyDemo } from './state-strategy-demo/state-strategy-demo';
 import { DynamicHostComponent } from './dynamic/dynamic-host.component';
 import { I18nDemoComponent } from './i18n/i18n-demo.component';
+import { Test } from './test/test';
+import { authGuard } from './auth-guard';
+import { Login } from './login/login';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
-  { path: 'about', component: About },
-  { path: 'pipes', component: PipesDemo },
+  {
+    path: 'about',
+    component: About,
+    children: [
+      {
+        path: 'mission',
+        component: Test,
+      }
+    ],
+  },
+  { path: 'pipes', component: PipesDemo, canActivate: [authGuard] },
   { path: 'pipes/:id', component: PipesDemo },
   { path: 'forms', component: FormsDemo },
   { path: 'signals', component: SignalsDemo },
@@ -23,6 +35,7 @@ export const routes: Routes = [
   { path: 'state-strategy', component: StateStrategyDemo },
   { path: 'dynamic', component: DynamicHostComponent },
   { path: 'i18n', component: I18nDemoComponent },
+  { path: 'login', component: Login },
   {
     path: 'lazy-feature',
     loadChildren: () =>
