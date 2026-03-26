@@ -12,6 +12,7 @@ import { I18nDemoComponent } from './i18n/i18n-demo.component';
 import { Test } from './test/test';
 import { authGuard } from './auth-guard';
 import { Login } from './login/login';
+import { Parent } from './parent/parent';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -28,6 +29,7 @@ export const routes: Routes = [
   { path: 'pipes', component: PipesDemo, canActivate: [authGuard] },
   { path: 'pipes/:id', component: PipesDemo },
   { path: 'forms', component: FormsDemo },
+  { path: 'component-communication', component: Parent },
   { path: 'signals', component: SignalsDemo },
   { path: 'rxjs', component: RxjsOperatorsDemo },
   { path: 'service', component: Service },

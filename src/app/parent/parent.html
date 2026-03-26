@@ -1,0 +1,11 @@
+<h4>Parent Component</h4>
+
+<button (click)="highlight()">Highlight</button>
+<button (click)="reset()">Reset</button>
+<button (click)="logStatus()">Log Status</button>
+
+<br>
+<!-- <app-child [message]="messageToChild" (notify)="receiveNotification($event)"></app-child> -->
+ <app-child *ngFor="let id of childIds" [id]="id" ></app-child>
+
+ <!-- <button (click)="updateChild()">Update</button> -->

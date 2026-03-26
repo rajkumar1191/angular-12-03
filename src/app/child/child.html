@@ -1,0 +1,13 @@
+<!-- <p>child works!</p>
+
+<p>{{message}}</p> -->
+
+<!-- <button (click)="sendMessage()">Submit</button> -->
+
+<div
+  [style.border]="isHighlighted ? '3px solid orange' : '1px solid #ddd'"
+  style="padding: 0.8rem; margin: 0.8rem"
+>
+  <h4>Child {{ id }}</h4>
+  <p>Status: {{ isHighlighted ? 'Highlighted' : 'Normal' }}</p>
+</div>
