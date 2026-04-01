@@ -86,5 +86,46 @@ bootstrapApplication(App, appConfig)
   - component UI details via signals/local state
 
 
+  Route Guards: Control access to routes. CanActivate, CanDeactivate, Resolve - Implement logic to allow or prevent navigation.
+  1. CanActivate: Check if a route can be activated. Used for authentication and authorization.
+  2. CanDeactivate: Check if a route can be deactivated. Used for unsaved changes warnings.
+  3. Resolve: Pre-fetch data before activating a route. Used to ensure necessary data is available before navigation.
+  4. CanActivateChild: Check if child routes can be activated. Used for protecting nested routes.
+  5. CanLoad: Check if a lazy-loaded module can be loaded. Used for controlling access to lazy-loaded features.
+
+  Interceptors: Intercept HTTP requests and responses. Used for logging, authentication, error handling, etc.
+
+
+  RxJS: Reactive programming library for handling asynchronous data streams. Provides operators for transforming, filtering, and combining streams.
+
+  Observables: Core primitive in RxJS representing a stream of values over time. Can be created from various sources (events, HTTP requests, etc.) and can be subscribed to for handling emitted values.
+
+  Observers: Objects that subscribe to observables to receive emitted values. Define handlers for next, error, and complete notifications.
+
+  Operators: Functions that take an observable and return a new observable. Used for transforming, filtering, and combining observables. pipe() method is used to chain operators together.
+
+  Subjects: Special type of observable that allows values to be multicasted to multiple observers. Can act as both an observable and an observer.
+
+  map(): Transform emitted values by applying a function to each value. Used for data transformation and projection.
+  this.http.get<User[]>('/api/data').pipe(map(response => response.data)).subscribe(data => console.log(data));
+
+  filter(): Filter emitted values based on a predicate function. Used for conditional data processing.
+  this.http.get<User[]>('/api/data').pipe(filter(item => item.active)).subscribe(activeItems => console.log(activeItems));
+
+  switchMap(): Map to a new observable and switch to it. Used for handling dependent asynchronous operations (e.g., user input triggering API calls).
+  mergeMap(): Map to a new observable and merge results. Used for handling concurrent asynchronous operations where order doesn't matter.
+  concatMap(): Map to a new observable and concatenate results. Used for handling asynchronous operations where order matters.
+  exhaustMap(): Map to a new observable and ignore new ones until the current one completes. Used for handling exclusive asynchronous operations (e.g., form submission).
+
+  shareReplay(): Share the last emitted value among multiple subscribers without re-running the source observable. Used for caching and sharing results of expensive operations (e.g., API calls).
+  forkJoin(): Run multiple observables in parallel and receive the final combined result once all complete. Used for combining results from multiple independent asynchronous operations.
+  combineLatest(): Combine the latest values from multiple observables whenever any of them emits. Used for combining dependent streams of data (e.g., form inputs).
+
+  subjects:
+  BehaviorSubject: A subject that requires an initial value and emits the current value to new subscribers. Used for representing state that can change over time (e.g., user authentication status).
+  ReplaySubject: A subject that can buffer a specified number of emitted values and replay them to new subscribers. Used for retaining a history of emitted values (e.g., chat messages).
+  AsyncSubject: A subject that emits only the last value upon completion. Used for representing a single transactional result that is only available after completion (e.g., a file upload result).
+  
+
 
 */

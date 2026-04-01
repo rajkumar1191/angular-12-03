@@ -1,0 +1,25 @@
+<section style="border: 2px solid #3f51b5; border-radius: 0.75rem; padding: 1rem; margin-top: 2rem">
+  <h3>RxJS Operators Demonstration</h3>
+  <p>Operator examples for common reactive flows with short explanation and real output values.</p>
+  <h3>Search Input Demo</h3>
+  <input type="text" placeholder="Type to search..." (input)="onSearch($event)" />
+
+  <button (click)="mergeMapExample()">Run mergeMap Example</button>
+  <button (click)="concatMapExample()">Run concatMap Example</button>
+  <button (click)="exhaustMapExample()">Run exhaustMap Example</button>
+
+  @if (loading) {
+    <p>Searching...</p>
+  }
+  <ul>
+    @for (item of results; track $index) {
+      <li>{{ item | json }}</li>
+    }
+  </ul>
+
+  <button (click)="loadForkJoin()">Run forkJoin Example</button>
+  <div *ngIf="resultsFromFork()">
+    <p>Results from forkJoin:</p>
+    <pre>{{ resultsFromFork() | json }}</pre>
+  </div>
+</section>
