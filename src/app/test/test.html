@@ -1,1 +1,5 @@
-<p>test works!</p>
+<ul>
+  @for (msg of messages; track $index) {
+    <li>{{ msg }}</li>
+  }
+</ul>

@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataService, PostModel } from '../services/data.service';
+import { NotificationService } from '../services/noti.service';
 
 @Component({
   selector: 'app-service',
@@ -15,9 +16,15 @@ export class Service implements OnInit {
 
   private dataService = inject(DataService);
 
-  // constructor(private dataService: DataService) {}
+  messages: string[] = [];
+
+  constructor(private noti: NotificationService) {}
 
   ngOnInit() {
+    this.noti.notifications1$.subscribe((msg) => {
+      this.messages.push(msg);
+    });
+
     // real-time use: fetch a list from API on init
     this.dataService.getPosts().subscribe((data) => {
       this.posts = data.slice(0, 5);
@@ -30,4 +37,3 @@ export class Service implements OnInit {
     });
   }
 }
-

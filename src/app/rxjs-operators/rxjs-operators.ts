@@ -28,7 +28,10 @@ import {
   Observable,
   from,
   exhaustMap,
+  delay,
 } from 'rxjs';
+import { NotificationService } from '../services/noti.service';
+import { Test } from '../test/test';
 
 interface OperatorExample {
   title: string;
@@ -40,7 +43,7 @@ interface OperatorExample {
 @Component({
   selector: 'app-rxjs-operators',
   standalone: true,
-  imports: [CommonModule, JsonPipe],
+  imports: [CommonModule, JsonPipe, Test],
   templateUrl: './rxjs-operators.html',
   styleUrl: './rxjs-operators.css',
 })
@@ -53,9 +56,28 @@ export class RxjsOperatorsDemo {
 
   postId = [1, 2, 3, 4, 5];
 
-  constructor(private http: HttpClient) {
+  messages: string[] = [];
+  user: any = null;
+
+  constructor(
+    private http: HttpClient,
+    private noti: NotificationService,
+  ) {
     this.setupSearch();
     this.setupExhaust();
+  }
+
+  ngOnInit() {
+    this.noti.notifications$.subscribe((msg) => {
+      this.messages.push(msg);
+    });
+    this.noti.notifications1$.subscribe((msg) => {
+      this.messages.push(msg);
+    });
+
+    this.noti.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   setupSearch() {
@@ -128,7 +150,7 @@ export class RxjsOperatorsDemo {
       });
   }
 
-  setupExhaust(){
+  setupExhaust() {
     this.click$
       .pipe(
         exhaustMap((id) =>
@@ -170,7 +192,6 @@ export class RxjsOperatorsDemo {
     this.click$.next(randomId);
   }
 
-
   loadForkJoin() {
     this.resultsFromFork.set(null);
     this.loading = true;
@@ -178,18 +199,86 @@ export class RxjsOperatorsDemo {
       post: this.http.get(`https://jsonplaceholder.typicode.com/posts`),
       user: this.http.get(`https://jsonplaceholder.typicode.com/users`),
       comments: this.http.get(`https://jsonplaceholder.typicode.com/comments`),
-    })
-      .subscribe({
-        next: (results) => {
-          this.resultsFromFork.set(results);
-          console.log('ForkJoin results:', results);
-          this.loading = false;
-        },
-        error: (err) => {
-          console.error('ForkJoin error:', err);
-          this.resultsFromFork.set({ error: 'Failed to load data' });
-          this.loading = false;
-        },
-      });
+    }).subscribe({
+      next: (results) => {
+        this.resultsFromFork.set(results);
+        console.log('ForkJoin results:', results);
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('ForkJoin error:', err);
+        this.resultsFromFork.set({ error: 'Failed to load data' });
+        this.loading = false;
+      },
+    });
+  }
+
+  loadCombineLatest() {
+    this.resultsFromFork.set(null);
+    this.loading = true;
+    combineLatest({
+      posts: this.http.get<any[]>(`https://jsonplaceholder.typicode.com/posts`), // Simulate delay for posts
+      users: this.http.get<any[]>(`https://jsonplaceholder.typicode.com/users`), // Simulate delay for users
+      comments: this.http.get<any[]>(`https://jsonplaceholder.typicode.com/comments`), // Simulate delay for comments
+    }).subscribe({
+      next: (results) => {
+        console.log('CombineLatest raw results:', results);
+        this.resultsFromFork.set(results);
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('CombineLatest error:', err);
+        this.resultsFromFork.set({ error: 'Failed to load data' });
+        this.loading = false;
+      },
+    });
+  }
+
+  loadWithoutShareReplay() {
+    const apiCall$ = this.http.get(`https://jsonplaceholder.typicode.com/posts`).pipe(
+      catchError((err) => {
+        console.error('API call error:', err);
+        return of({ error: 'Failed to load posts' }); // Return error object on failure
+      }),
+    );
+    apiCall$.subscribe((data) => {
+      console.log('First subscriber received:', data);
+    });
+    apiCall$.subscribe((data) => {
+      console.log('Second subscriber received:', data);
+    });
+  }
+
+  loadShareReplay() {
+    const apiCall$ = this.http.get(`https://jsonplaceholder.typicode.com/posts`).pipe(
+      shareReplay(1), // Cache the latest value for new subscribers
+      catchError((err) => {
+        console.error('API call error:', err);
+        return of({ error: 'Failed to load posts' }); // Return error object on failure
+      }),
+    );
+    apiCall$.subscribe((data) => {
+      console.log('First subscriber received:', data);
+    });
+    apiCall$.subscribe((data) => {
+      console.log('Second subscriber received:', data);
+    });
+  }
+
+  sendMgs() {
+    this.noti.sendNotification('Hello from RxJS demo!' + new Date().toLocaleTimeString());
+  }
+
+  
+  sendMgs1() {
+    this.noti.sendNotification1('Hello from RxJS demo!' + new Date().toLocaleTimeString());
+  }
+
+  login() {
+    this.noti.login();
+  }
+
+  logout() {
+    this.noti.logout();
   }
 }

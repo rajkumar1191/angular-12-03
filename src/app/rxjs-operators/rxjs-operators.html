@@ -18,8 +18,30 @@
   </ul>
 
   <button (click)="loadForkJoin()">Run forkJoin Example</button>
+  <button (click)="loadCombineLatest()">Run combineLatest Example</button>
   <div *ngIf="resultsFromFork()">
     <p>Results from forkJoin:</p>
     <pre>{{ resultsFromFork() | json }}</pre>
   </div>
+
+  <button (click)="loadWithoutShareReplay()">Run Without shareReplay Example</button>
+  <button (click)="loadShareReplay()">Run With shareReplay Example</button>
+  <button (click)="sendMgs()">Send Notification</button>
+  <button (click)="sendMgs1()">Send Notification 1</button>
+
+  <ul>
+    @for (msg of messages; track $index) {
+      <li>{{ msg }}</li>
+    }
+  </ul>
+
+  <div *ngIf="user">
+    <p>Logged in user: {{ user.name }}</p>
+    <button (click)="logout()">Logout</button>
+  </div>
+  <div *ngIf="!user">
+    <button (click)="login()">Login</button>
+  </div>
+
+  <app-test></app-test>
 </section>
