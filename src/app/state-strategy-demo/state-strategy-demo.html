@@ -1,0 +1,35 @@
+<section style="border: 2px solid #666; border-radius: 0.75rem; padding: 1rem; margin-top: 1rem;">
+  <h3>State strategy comparison</h3>
+  <p>Demonstrates local component state vs signal vs NgRx store, with shared visual behavior.</p>
+
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;">
+    <div style="border: 1px solid #aaa; border-radius: 0.5rem; padding: 0.7rem; width: 220px;">
+      <h4>Local state</h4>
+      <p>{{ localCount }}</p>
+      <button (click)="decLocal()">-</button>
+      <button (click)="incLocal()">+</button>
+    </div>
+
+    <div style="border: 1px solid #aaa; border-radius: 0.5rem; padding: 0.7rem; width: 220px;">
+      <h4>Signal state</h4>
+      <p>{{ signalCount() }}</p>
+      <button (click)="decSignal()">-</button>
+      <button (click)="incSignal()">+</button>
+    </div>
+
+    <div style="border: 1px solid #aaa; border-radius: 0.5rem; padding: 0.7rem; width: 220px;">
+      <h4>NgRx store state</h4>
+      <p>{{ storeCount$ | async }}</p>
+      <button (click)="decStore()">-</button>
+      <button (click)="incStore()">+</button>
+    </div>
+  </div>
+
+  <button (click)="resetAll()">Reset All</button>
+
+  <ul style="margin-top: 1rem;">
+    <li><strong>Local state</strong> is easy and works only inside this component. No cross-view sharing.</li>
+    <li><strong>Signals</strong> provide fine-grained reactivity and are ideal for local reactive updates in standalone + OnPush components.</li>
+    <li><strong>NgRx store</strong> is best for shared global state and complex actions/reducer flows.</li>
+  </ul>
+</section>

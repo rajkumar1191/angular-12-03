@@ -1,6 +1,20 @@
-import { AsyncPipe, CurrencyPipe, DatePipe, JsonPipe, LowerCasePipe, PercentPipe, SlicePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
+import {
+  AsyncPipe,
+  CommonModule,
+  CurrencyPipe,
+  DatePipe,
+  JsonPipe,
+  LowerCasePipe,
+  PercentPipe,
+  SlicePipe,
+  TitleCasePipe,
+  UpperCasePipe,
+} from '@angular/common';
 import { Component, Pipe, PipeTransform } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { FormDataItem, selectFormDataItems } from '../store';
 
 // Custom simple pipe: truncates text to a limit and adds ellipsis
 @Pipe({
@@ -34,7 +48,20 @@ export class ReversePipe implements PipeTransform {
 @Component({
   selector: 'app-pipes-demo',
   standalone: true,
-  imports: [DatePipe, UpperCasePipe, LowerCasePipe, TitleCasePipe, CurrencyPipe, PercentPipe, JsonPipe, SlicePipe, AsyncPipe, TruncatePipe, ReversePipe],
+  imports: [
+    DatePipe,
+    UpperCasePipe,
+    LowerCasePipe,
+    TitleCasePipe,
+    CurrencyPipe,
+    PercentPipe,
+    JsonPipe,
+    SlicePipe,
+    AsyncPipe,
+    TruncatePipe,
+    ReversePipe,
+    CommonModule
+  ],
   templateUrl: './pipes.html',
   styleUrl: './pipes.css',
 })
@@ -43,14 +70,19 @@ export class PipesDemo {
   productPrice = 1234.56;
   createdAt = new Date();
   progress = 0.42;
-  description = 'Pipes are a powerful mechanism to transform values in an Angular template. Built-in pipes cover most common tasks; custom pipes let you solve application-specific formatting needs.';
+  description =
+    'Pipes are a powerful mechanism to transform values in an Angular template. Built-in pipes cover most common tasks; custom pipes let you solve application-specific formatting needs.';
   heroList = ['Iron Man', 'Captain America', 'Black Panther', 'Hulk'];
 
   asyncItems = new Promise<string[]>((resolve) => {
     setTimeout(() => resolve(['RxJS', 'Signals', 'Change Detection']), 1600);
   });
 
-  constructor(private route: ActivatedRoute) {
+  formDataItems$: Observable<FormDataItem[]>;
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store,
+  ) {
     this.route.params.subscribe((params) => {
       console.log('Route params:', params);
     });
@@ -58,6 +90,7 @@ export class PipesDemo {
     this.route.queryParams.subscribe((queryParams) => {
       console.log('Query params:', queryParams);
     });
+    this.formDataItems$ = this.store.select(selectFormDataItems);
   }
 
   // Example of calling a pipe-like transformation for inline code use, not template

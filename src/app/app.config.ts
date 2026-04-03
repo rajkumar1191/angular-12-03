@@ -15,7 +15,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: HttpLoggerInterceptor, multi: true },
- x
+    provideStore({
+      counter: counterReducer,
+      formData: formDataReducer,
+    }),
   ],
 };
 

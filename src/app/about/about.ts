@@ -1,9 +1,10 @@
 import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, ContentChild, DoCheck, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Service } from '../service/service';
+import { LazyFeatureModule } from "../lazy-feature/lazy-feature.module";
 
 @Component({
   selector: 'app-about',
-  imports: [],
+  imports: [LazyFeatureModule],
   templateUrl: './about.html',
   styleUrl: './about.css',
 })

@@ -1,37 +1,82 @@
 <section style="border: 2px solid #268bd2; border-radius: 0.75rem; padding: 1rem; margin-top: 2rem">
   <h3>Pipes Demo</h3>
   <p>
-    Pipes are functions that run in templates and transform displayed output. They are useful for formatting, localization,
-    slicing arrays, filtering text, and more.
+    Pipes are functions that run in templates and transform displayed output. They are useful for
+    formatting, localization, slicing arrays, filtering text, and more.
   </p>
 
   <h4>Built-in pipes</h4>
   <ul>
-    <li>uppercase: <strong>{{ productName | uppercase }}</strong></li>
-    <li>lowercase: <strong>{{ productName | lowercase }}</strong></li>
-    <li>titlecase: <strong>{{ productName | titlecase }}</strong></li>
-    <li>date: <strong>{{ createdAt | date:'dd-MMM-yyyy' }}</strong></li>
-    <li>currency: <strong>{{ productPrice | currency:'INR':'symbol':'1.2-2' }}</strong></li>
-    <li>percent: <strong>{{ progress | percent:'1.0-0' }}</strong></li>
-    <li>json: <strong>{{ heroList | json }}</strong></li>
-    <li>slice: <strong>{{ heroList | slice:0:3 | json }}</strong></li>
-    <li>async: <strong>{{ asyncItems | async | json }}</strong></li>
+    <li>
+      uppercase: <strong>{{ productName | uppercase }}</strong>
+    </li>
+    <li>
+      lowercase: <strong>{{ productName | lowercase }}</strong>
+    </li>
+    <li>
+      titlecase: <strong>{{ productName | titlecase }}</strong>
+    </li>
+    <li>
+      date: <strong>{{ createdAt | date: 'dd-MMM-yyyy' }}</strong>
+    </li>
+    <li>
+      currency: <strong>{{ productPrice | currency: 'INR' : 'symbol' : '1.2-2' }}</strong>
+    </li>
+    <li>
+      percent: <strong>{{ progress | percent: '1.0-0' }}</strong>
+    </li>
+    <li>
+      json: <strong>{{ heroList | json }}</strong>
+    </li>
+    <li>
+      slice: <strong>{{ heroList | slice: 0 : 3 | json }}</strong>
+    </li>
+    <li>
+      async: <strong>{{ asyncItems | async | json }}</strong>
+    </li>
   </ul>
 
   <h4>Custom pipes</h4>
   <ul>
-    <li>truncate(20): <strong>{{ description | truncate:20 }}</strong></li>
-    <li>reverse: <strong>{{ productName | reverse }}</strong></li>
+    <li>
+      truncate(20): <strong>{{ description | truncate: 20 }}</strong>
+    </li>
+    <li>
+      reverse: <strong>{{ productName | reverse }}</strong>
+    </li>
   </ul>
 
   <h4>Custom pipe usage in component code</h4>
-  <p><code>{{ toUpperCase(productName) }}</code> = <strong>{{ toUpperCase(productName) }}</strong></p>
+  <p>
+    <code>{{ toUpperCase(productName) }}</code> = <strong>{{ toUpperCase(productName) }}</strong>
+  </p>
 
   <h4>Real-time use case ideas</h4>
   <ul>
     <li>Sanitize and format user message previews using a truncate filter.</li>
     <li>Show currency and date in locale-specific format for international users.</li>
-    <li>Render conditional labels with pipe chaining: <code>{{ productName | titlecase | slice:0:12 }}</code>.</li>
+    <li>
+      Render conditional labels with pipe chaining:
+      <code>{{ productName | titlecase | slice: 0 : 12 }}</code
+      >.
+    </li>
     <li>Auto-update UI from asynchronous data streams with <code>async</code> pipe.</li>
   </ul>
+
+  <section
+    style="
+      margin-top: 1rem;
+      background: #f9f9f9;
+      padding: 0.8rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ddd;
+    "
+  >
+    <h4>Saved form entries in NgRx store</h4>
+    <ul>
+      <li *ngFor="let item of formDataItems$ | async">
+        {{ item.name }} ({{ item.email }}, age {{ item.age }}, agreed: {{ item.agree }})
+      </li>
+    </ul>
+  </section>
 </section>
