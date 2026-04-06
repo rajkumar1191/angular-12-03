@@ -4,6 +4,7 @@ import { NotificationService } from '../services/noti.service';
 @Component({
   selector: 'app-test',
   imports: [],
+  standalone: true,
   templateUrl: './test.html',
   styleUrl: './test.css',
 })

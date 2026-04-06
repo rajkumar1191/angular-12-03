@@ -4,6 +4,7 @@ import { RouterLink, RouterOutlet, RouterLinkActive, Router } from '@angular/rou
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, RouterLink, FormsModule, RouterLinkActive],
   templateUrl: './app.html',
   styleUrl: './app.css',
